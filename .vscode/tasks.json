@@ -37,6 +37,26 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build Release",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "-c",
+                "Release"
+            ]
+        },
+        {
+            "label": "Run Release",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "-c",
+                "Release"
+            ],
+            "dependsOn": "Build Release",
+            "problemMatcher": []
         }
     ]
 }
