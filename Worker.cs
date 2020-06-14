@@ -36,7 +36,5 @@ namespace cs_async
             Trace.WriteLine(value);
             return value;
         }
-
-
     }
 }

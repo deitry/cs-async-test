@@ -9,7 +9,7 @@ namespace cs_async
     [MemoryDiagnoser]
     public class AcyncBench
     {
-        readonly Worker Worker;
+        internal readonly Worker Worker;
 
         public AcyncBench()
         {
@@ -22,7 +22,7 @@ namespace cs_async
             Trace.WriteLine("\nTest1");
             var worker = new Worker();
             // await async task
-            await worker.DoSomethingAsync();
+            await worker.DoSomethingAsync().ConfigureAwait(false);
             Trace.WriteLine("Hello World!");
         }
 
@@ -34,7 +34,7 @@ namespace cs_async
             // create task but await it later
             Task task = worker.DoSomethingAsync();
             Trace.WriteLine("Hello World!");
-            await task;
+            await task.ConfigureAwait(false);
         }
 
         [Benchmark]
@@ -44,15 +44,13 @@ namespace cs_async
             var worker = new Worker();
             // create task but await it later
             var task = worker.DoSomethingAsyncValue();
-            Trace.WriteLine($"Hello World! {await task}");
+            var value = await task.ConfigureAwait(false);
+            Trace.WriteLine($"Hello World! {value}");
         }
     }
 
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
-        {
-            var summary = BenchmarkRunner.Run<AcyncBench>();
-        }
+        private static void Main(string[] _) => BenchmarkRunner.Run<AcyncBench>();
     }
 }
