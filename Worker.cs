@@ -20,5 +20,23 @@ namespace cs_async
 
             Trace.WriteLine(value);
         }
+
+        public async ValueTask<int> DoSomethingAsyncValue()
+        {
+            int value = 13;
+
+            // асихронно ожидать одну секунду
+            await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
+
+            value *= 2;
+
+            // асихронно ожидать одну секунду
+            await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
+
+            Trace.WriteLine(value);
+            return value;
+        }
+
+
     }
 }
